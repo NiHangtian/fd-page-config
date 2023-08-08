@@ -1,10 +1,11 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-08-06 17:05:22
- * @LastEditTime: 2023-08-08 00:15:05
+ * @LastEditTime: 2023-08-08 23:45:50
  * @LastEditors: 倪航天
  * @Description: 
  */
+import React from 'react';
 import { default as Empty } from "./Empty";
 import { RenderTyping } from '../typing'
 
@@ -16,6 +17,5 @@ const DefaultCmp = () => {
 export default {
     Empty,
     DefaultCmp
-} as Record<string, (() => (React.ReactNode | JSX.Element)) | (React.ReactNode | React.FC<any> | JSX.Element)>
-
+} as Record<string, ((() => (React.ReactNode | JSX.Element)) | React.FC<RenderTyping.CmpProps & { children: any }>)>
 

@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 23:23:19
- * @LastEditTime: 2023-08-07 23:31:17
+ * @LastEditTime: 2023-08-08 23:46:45
  * @LastEditors: 倪航天
  * @Description: 
  */
@@ -25,7 +25,8 @@ declare namespace RenderTyping {
         id: React.Key;
     }
     type FieldType = string | undefined | null | {
-        value: string | Record<string, string>;
+        value?: string | Record<string, string>;
+        staticValue?: any;
         valueEnum?: Record<string | number, string | number>;
         filterName?: string;
     }
@@ -37,7 +38,7 @@ declare namespace RenderTyping {
         compare: FieldType | FieldType[];
     }
     interface RuleType {
-        ruleList;
+        ruleList: RuleListType[];
         rule: "!&&" | "!||" | "&&" | "||";
     }
     /**
@@ -59,6 +60,7 @@ declare namespace RenderTyping {
             tip: Text;
         } & Text;
         layout?: Layout;
+        readonly?: boolean;
         initialValue?: any;
         props?: Record<string, any>;
     }
@@ -124,12 +126,15 @@ declare namespace RenderTyping {
     interface ModuleRenderProps {
         readonly?: Readonly;
         params: Params
-        moduleOptions: ModuleOptions
+        moduleOptions: ModuleOptions;
+        disabled?: boolean;
     }
 
     interface CmpProps {
         initialValue?: any;
-        CmpOptions: defaultCmpOptionsType;
+        readonly?: Readonly;
+        disabled?: boolean;
+        cmpOptions: defaultCmpOptionsType;
     }
 }
 
