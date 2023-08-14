@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 22:59:44
- * @LastEditTime: 2023-08-14 22:36:25
+ * @LastEditTime: 2023-08-14 23:24:44
  * @LastEditors: 倪航天
  * @Description: 配置化入口
  */
@@ -12,6 +12,7 @@ import { Form, Spin, Skeleton, } from 'antd';
 import { RenderTyping } from './typing';
 import { ModuleRenderContainer } from './ModuleRender'
 import { setModuleId } from '@/utils';
+import type { RenderPageProps } from './RenderPage.d.ts'
 
 export const Context = createContext<RenderTyping.ContextType>({} as any)
 
@@ -37,7 +38,8 @@ const defaultOptions: RenderTyping.OptionsType = {
 }
 
 const RenderPage = <T extends any,>(
-    props: RenderTyping.RenderPageProps<T>,
+
+    props: RenderPageProps<T>,
     ref: React.Ref<RenderTyping.actionType>
 ) => {
 
@@ -93,9 +95,11 @@ const RenderPage = <T extends any,>(
     );
 }
 
-const Index: (<Values = any>(props: RenderTyping.RenderPageProps<Values> & {
+const Index: (<Values = any>(props: RenderPageProps<Values> & {
     children?: React.ReactNode;
 } & {
     ref?: React.Ref<RenderTyping.actionType> | undefined;
 }) => React.ReactElement) = React.forwardRef(RenderPage) as unknown as any
 export default Index;
+
+export type { RenderPageProps } 

@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 23:23:19
- * @LastEditTime: 2023-08-14 22:36:51
+ * @LastEditTime: 2023-08-14 23:22:55
  * @LastEditors: 倪航天
  * @Description: 
  */
@@ -103,18 +103,6 @@ declare namespace RenderTyping {
     interface OptionsType {
         schema?: SchemaType;
         params: Params;
-    }
-    interface RenderPageProps<T extends any> {
-        options?: OptionsType;
-        form: FormInstance<any>;
-        readonly?: Readonly;
-        id?: React.Key;
-        filterEnum?: filterEnum;
-        request?: (e: T, options?: OptionsType, action: actionType) => Promise<OptionsType>;
-        params?: T;
-        loading?: boolean;
-        setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
-
     }
 
     interface ModuleRenderContainerProps {
