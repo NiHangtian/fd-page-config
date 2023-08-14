@@ -1,6 +1,7 @@
 {
   "private": true,
   "author": "nihangtian <597623187@qq.com>",
+  "version": "1.0.1",
   "scripts": {
     "dev": "umi dev",
     "build": "umi build",
