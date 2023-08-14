@@ -9,7 +9,8 @@
     "setup": "umi setup",
     "start": "npm run dev",
     "lint": "eslint src",
-    "fix": "eslint src --fix"
+    "fix": "eslint src --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "antd": "^5.7.3",
@@ -22,7 +23,8 @@
     "@types/react-dom": "^18.0.11",
     "@umijs/lint": "^4.0.75",
     "lint-staged": "^14.0.0",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.3",
+    "husky": "^8.0.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,less}": [
