@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-08-01 22:27:29
- * @LastEditTime: 2023-08-08 23:28:57
+ * @LastEditTime: 2023-08-14 22:40:46
  * @LastEditors: 倪航天
  * @Description: 好用的函数
  */
@@ -9,20 +9,20 @@ import type { RenderTyping } from '@/components/Render/typing';
 
 import { UUID } from 'uuidjs';
 
-
-/**
- * @description: 配置链接
- * @param {string} str  "/home/{aaa.bbb}/{ccc}"
- * @param {Record} replacements {aaa:{bbb:123},ccc:456}
- * @return {*} "/home/123/456"
- */
-export function replaceBracesValue(str: string, replacements: Record<string, any>) {
-    const re = /{([^}]+)}/g;
-    const result = str?.replace(re, (match, p1) => {
-        return getValueByPath(p1, replacements) ?? match
-    })
-    return result
+export function getIsContain(params: any, target: any) {
+    if (Array.isArray(params) && Array.isArray(target)) {
+        return params.some(item => target.find(it => it === item));
+    }
+    if (Array.isArray(params)) {
+        return params.some(item => item === target);
+    }
+    if (Array.isArray(target)) {
+        return target.some(item => item === params);
+    }
+    return false
 }
+
+
 
 /**
  * @description: 更具路径获取参数
@@ -37,10 +37,22 @@ export function getValueByPath(path: string, replacements: Record<string, any>) 
     })
     return value as any
 }
-
+/**
+ * @description: 配置链接
+ * @param {string} str  "/home/{aaa.bbb}/{ccc}"
+ * @param {Record} replacements {aaa:{bbb:123},ccc:456}
+ * @return {*} "/home/123/456"
+ */
+export function replaceBracesValue(str: string, replacements: Record<string, any>) {
+    const re = /{([^}]+)}/g;
+    const result = str?.replace(re, (match, p1) => {
+        return getValueByPath(p1, replacements) ?? match
+    })
+    return result
+}
 export function getInitialValueByField(params: Record<string, any>, field: RenderTyping.FieldType, filterEnum?: RenderTyping.filterEnum) {
     if ((field ?? true) === true) return;  // ts 不识别；  以后再用
-    if (field == undefined) return;
+    if (field === undefined || field === null) return;
     let initValue = undefined;
 
     if (typeof field === "string" && (initValue = getValueByPath(field, params))) return initValue;
@@ -65,20 +77,41 @@ export function getInitialValueByField(params: Record<string, any>, field: Rende
     throw Error("field 类型错误");
 }
 
+export function getRuleByParams(params: Record<string, any>, rule: RenderTyping.RuleListType) {
+    let { current, compare } = rule;
+    const currentValue = Array.isArray(current) ? current.map(item => getInitialValueByField(params, item)) : getInitialValueByField(params, current);
+    const compareValue = Array.isArray(compare) ? compare.map(item => getInitialValueByField(params, item)) : getInitialValueByField(params, compare);
+
+    let isMath = false
+    switch (rule.operator) {
+        case "!=":
+            isMath = currentValue !== compareValue
+            break;
+        case "in":
+            isMath = getIsContain(currentValue, compareValue)
+            break;
+        case "notIn":
+            isMath = !getIsContain(currentValue, compareValue)
+            break;
+        default:
+            isMath = currentValue === compareValue
+    }
+    return isMath
+
+}
+
+
+
 
 export class DomainId {
     private cmpIdDomain: Record<string, number> = {
 
     }
 
-    constructor() {
-
-    }
 
     public getId(cmpId: string, id?: React.Key) {
-        const _this = this
-        if (_this.cmpIdDomain[cmpId] || (_this.cmpIdDomain[cmpId] = 0)) _this.cmpIdDomain[cmpId] = ++_this.cmpIdDomain[cmpId]
-        if (id == undefined) return String(id);
+        if (this.cmpIdDomain[cmpId] || (this.cmpIdDomain[cmpId] = 0)) this.cmpIdDomain[cmpId] = ++this.cmpIdDomain[cmpId]
+        if (id === undefined === null) return String(id);
         return UUID.genV4()
     }
 
@@ -124,38 +157,5 @@ export function getIsMatchRule(params: Record<string, any>, ruleValue: RenderTyp
 }
 
 
-export function getRuleByParams(params: Record<string, any>, rule: RenderTyping.RuleListType) {
-    let { current, compare } = rule;
-    const currentValue = Array.isArray(current) ? current.map(item => getInitialValueByField(params, item)) : getInitialValueByField(params, current);
-    const compareValue = Array.isArray(compare) ? compare.map(item => getInitialValueByField(params, item)) : getInitialValueByField(params, compare);
 
-    let isMath = false
-    switch (rule.operator) {
-        case "!=":
-            isMath = currentValue != compareValue
-            break;
-        case "in":
-            isMath = getIsContain(currentValue, compareValue)
-            break;
-        case "notIn":
-            isMath = !getIsContain(currentValue, compareValue)
-            break;
-        default:
-            isMath = currentValue === compareValue
-    }
-    return isMath
 
-}
-
-export function getIsContain(params: any, target: any) {
-    if (Array.isArray(params) && Array.isArray(target)) {
-        return params.some(item => target.find(it => it === item));
-    }
-    if (Array.isArray(params)) {
-        return params.some(item => item === target);
-    }
-    if (Array.isArray(target)) {
-        return target.some(item => item === params);
-    }
-    return false
-}

@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 23:23:19
- * @LastEditTime: 2023-08-08 23:46:45
+ * @LastEditTime: 2023-08-14 22:36:51
  * @LastEditors: 倪航天
  * @Description: 
  */
@@ -79,7 +79,7 @@ declare namespace RenderTyping {
     interface ModuleOptions {
         id: React.Key;
         cmpId: string;
-        cmpOptions: {} & defaultCmpOptionsType;
+        cmpOptions: defaultCmpOptionsType & Record<string, any>;
         cmpRules?: {
             readonlyRule?: RuleType[];
             showRule?: RuleType[];
