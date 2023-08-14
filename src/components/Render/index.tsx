@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 22:59:44
- * @LastEditTime: 2023-08-08 22:23:33
+ * @LastEditTime: 2023-08-14 22:36:25
  * @LastEditors: 倪航天
  * @Description: 配置化入口
  */
@@ -43,13 +43,13 @@ const RenderPage = <T extends any,>(
 
     const { options = defaultOptions, params, filterEnum, request, readonly, id = "RenderPage" } = props;
     const Domain = setModuleId(options.schema?.modules || [])
-    const [form] = props.form ? [props.form] : Form.useForm();
+    const [form] = Form.useForm(props.form);
     const [initData, setInitData] = useState(options)
     let [loading, setLoading] = useState(false);
     if (typeof props.loading === "boolean" && (loading = props.loading)) {
         setLoading = props.setLoading ?? setLoading
     };
- 
+
     const action = useMemo(() => ({
         setLoading,
         form,
