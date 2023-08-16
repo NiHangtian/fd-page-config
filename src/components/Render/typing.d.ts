@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 23:23:19
- * @LastEditTime: 2023-08-14 23:22:55
+ * @LastEditTime: 2023-08-16 23:28:02
  * @LastEditors: 倪航天
  * @Description: 
  */
@@ -49,10 +49,7 @@ declare namespace RenderTyping {
      * @param {string} field 取值逻辑 
      */
     interface defaultCmpOptionsType {
-        field?: {
-            value: string | Record<string, string>;
-            [key: string]: any;
-        }
+        field?: FieldType
         styles?: React.CSSProperties;
         required?: boolean;
         name?: FormItemProps["name"];
@@ -90,11 +87,6 @@ declare namespace RenderTyping {
     }
     interface SchemaType {
         type: "form";
-        apiOptions?: {
-            params: Params;
-            url: string;
-            dataField: string;
-        }[];
         styles: React.CSSProperties;
         layout?: Layout;
         modules: ModuleOptions[];
