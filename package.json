@@ -11,10 +11,12 @@
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "prepare": "husky install",
-    "test":"npx lint-staged"
+    "test": "npx lint-staged"
   },
   "dependencies": {
+    "@ant-design/pro-form": "^2.18.4",
     "antd": "^5.7.3",
+    "lodash": "^4.17.21",
     "umi": "^4.0.73",
     "uuid": "^9.0.0",
     "uuidjs": "^5.0.1"
@@ -23,9 +25,9 @@
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@umijs/lint": "^4.0.75",
+    "husky": "^8.0.0",
     "lint-staged": "^14.0.0",
-    "typescript": "^5.0.3",
-    "husky": "^8.0.0"
+    "typescript": "^5.0.3"
   },
   "module": "src/components/index.js",
   "typings": "src/components/index.d.ts",

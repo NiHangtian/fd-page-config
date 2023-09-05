@@ -1,8 +1,8 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 22:59:44
- * @LastEditTime: 2023-08-14 23:24:44
- * @LastEditors: 倪航天
+ * @LastEditTime: 2023-09-04 17:47:07
+ * @LastEditors: Please set LastEditors
  * @Description: 配置化入口
  */
 
@@ -12,7 +12,7 @@ import { Form, Spin, Skeleton, } from 'antd';
 import { RenderTyping } from './typing';
 import { ModuleRenderContainer } from './ModuleRender'
 import { setModuleId } from '@/utils';
-import type { RenderPageProps } from './RenderPage.d.ts'
+import type { RenderPageProps } from './RenderPage.d.ts';
 
 export const Context = createContext<RenderTyping.ContextType>({} as any)
 

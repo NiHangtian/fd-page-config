@@ -1,8 +1,8 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-08-01 22:27:29
- * @LastEditTime: 2023-08-14 22:40:46
- * @LastEditors: 倪航天
+ * @LastEditTime: 2023-09-01 17:36:18
+ * @LastEditors: Please set LastEditors
  * @Description: 好用的函数
  */
 import type { RenderTyping } from '@/components/Render/typing';
@@ -156,6 +156,25 @@ export function getIsMatchRule(params: Record<string, any>, ruleValue: RenderTyp
 
 }
 
-
-
-
+const defaultParamsEnum = {
+    Array: [],
+    Object: {},
+    String: "",
+    Number: NaN
+}
+type JsonParseDefaultParams = "Array" | "Object" | "String" | "Number";
+type JsonParse = (params: any, defaultParams?: JsonParseDefaultParams | any) => any;
+/**
+ * @description: JSON.parse 防止报错
+ * @param {any} params
+ * @param {JsonParseDefaultParams｜any} defaultParams 默认为Object {} 
+ * @return {any} 一旦报错返回默认值
+ */
+export const jsonParse: JsonParse = function (params: any,
+    defaultParams = "Object") {
+    try {
+        return JSON.parse(params)
+    } catch (error) {
+        return defaultParamsEnum?.[defaultParams as JsonParseDefaultParams] ?? defaultParams
+    }
+}

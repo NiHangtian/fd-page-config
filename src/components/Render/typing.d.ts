@@ -1,8 +1,8 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-07-31 23:23:19
- * @LastEditTime: 2023-08-16 23:28:02
- * @LastEditors: 倪航天
+ * @LastEditTime: 2023-09-04 17:35:48
+ * @LastEditors: Please set LastEditors
  * @Description: 
  */
 import type { ColProps, FormInstance, FormItemProps, RowProps } from "antd";
@@ -59,6 +59,7 @@ declare namespace RenderTyping {
         layout?: Layout;
         readonly?: boolean;
         initialValue?: any;
+        formItemProps?: FormItemProps;
         props?: Record<string, any>;
     }
 
@@ -89,6 +90,7 @@ declare namespace RenderTyping {
         type: "form";
         styles: React.CSSProperties;
         layout?: Layout;
+        global?: Record<string, any>;
         modules: ModuleOptions[];
     }
 
