@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-08-01 22:27:29
- * @LastEditTime: 2023-09-01 17:36:18
+ * @LastEditTime: 2023-09-05 14:05:34
  * @LastEditors: Please set LastEditors
  * @Description: 好用的函数
  */
@@ -178,3 +178,13 @@ export const jsonParse: JsonParse = function (params: any,
         return defaultParamsEnum?.[defaultParams as JsonParseDefaultParams] ?? defaultParams
     }
 }
+
+export function sleep(params: number = 200) {
+
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(null)
+        }, params);
+    })
+}
+

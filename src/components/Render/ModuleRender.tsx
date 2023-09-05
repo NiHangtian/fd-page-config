@@ -1,27 +1,31 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-08-06 16:06:25
- * @LastEditTime: 2023-09-04 17:36:22
+ * @LastEditTime: 2023-09-05 15:02:09
  * @LastEditors: Please set LastEditors
  * @Description: 
  */
-import React, { useMemo, useContext } from 'react';
+import  { useMemo, useContext, useEffect } from 'react';
 import type { RenderTyping } from './typing';
 import Grid from '@/components/Grid'
 import defCmp from './components';
 import { Context } from './index';
+import { UseLayout, useModel } from './useModel'
 import { getInitialValueByField, getIsMatchRule } from '@/utils';
+import _ from 'lodash'
 
 
 
 export const ModuleRender = (props: RenderTyping.ModuleRenderProps) => {
 
 
-    const { moduleOptions, params, readonly: fsReadOnly, disabled: fsDisabled } = props;
+    const { moduleOptions: propsOptions, params, readonly: fsReadOnly, disabled: fsDisabled } = props;
+    const moduleOptions = _.cloneDeep(propsOptions) as RenderTyping.ModuleOptions;
     const { cmpOptions } = moduleOptions;
-    const { filterEnum, readonly: highestReadonly } = useContext(Context)
     const CMP = defCmp?.[moduleOptions.cmpId] ?? defCmp.DefaultCmp;
-    
+
+    const { filterEnum, readonly: highestReadonly } = useContext(Context)
+
     const layout = moduleOptions?.cmpOptions?.layout || {};
     delete moduleOptions?.cmpOptions?.layout
 
@@ -72,6 +76,17 @@ export const ModuleRender = (props: RenderTyping.ModuleRenderProps) => {
 
 
 export const ModuleRenderContainer = ({ schema, params }: RenderTyping.ModuleRenderContainerProps) => {
+    const { setLabelCol, setWrapperCol } = useModel("useLayout") as UseLayout;
+
+    useEffect(() => {
+        if (schema?.global?.labelCol) {
+            setLabelCol(schema?.global?.labelCol)
+        }
+        if (schema?.global?.wrapperCol) {
+            setWrapperCol(schema?.global?.wrapperCol)
+        }
+
+    }, [schema]);
 
     return (
         <Grid   {...schema?.layout}>
