@@ -1,8 +1,8 @@
 /*
  * @Author: 倪航天
  * @Date: 2023-08-06 16:06:25
- * @LastEditTime: 2023-08-08 23:39:20
- * @LastEditors: 倪航天
+ * @LastEditTime: 2023-09-04 17:36:22
+ * @LastEditors: Please set LastEditors
  * @Description: 
  */
 import React, { useMemo, useContext } from 'react';
@@ -21,7 +21,10 @@ export const ModuleRender = (props: RenderTyping.ModuleRenderProps) => {
     const { cmpOptions } = moduleOptions;
     const { filterEnum, readonly: highestReadonly } = useContext(Context)
     const CMP = defCmp?.[moduleOptions.cmpId] ?? defCmp.DefaultCmp;
+    
     const layout = moduleOptions?.cmpOptions?.layout || {};
+    delete moduleOptions?.cmpOptions?.layout
+
     const initialValue = useMemo(() => {
         let init = cmpOptions.initialValue;
         if (cmpOptions.field) {
@@ -42,7 +45,7 @@ export const ModuleRender = (props: RenderTyping.ModuleRenderProps) => {
     }, [highestReadonly, fsReadOnly, moduleOptions, params]);
 
     /**
-    * @description: 全局中的readonly 权重最高   全局>自身options>自身Rules>父组建集成
+    * @description: isShow 会阻止内部渲染
     */
     const isShow = useMemo(() => {
         if (moduleOptions.cmpRules?.showRule) return getIsMatchRule(params, moduleOptions.cmpRules.showRule);
