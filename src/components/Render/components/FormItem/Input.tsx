@@ -1,14 +1,20 @@
 /*
  * @Author: 倪航天 && 598723187@qq.com
  * @Date: 2023-08-31 17:46:55
- * @LastEditTime: 2023-09-04 17:53:32
+ * @LastEditTime: 2023-09-05 13:55:37
  * @Description: TODO:
  */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import FormItem from './index'
 import { RenderTyping } from '../../typing';
 import { Input as AntdInput } from 'antd';
 import _ from 'lodash';
+
+const ReadonlyInput = ({ value }: { value?: string }) => {
+
+    return <>{value}</>
+}
+
 
 const Input = (props: RenderTyping.CmpProps) => {
     const FormItemProps = useMemo(() => {
@@ -21,7 +27,9 @@ const Input = (props: RenderTyping.CmpProps) => {
 
     return (
         <FormItem  {...FormItemProps as any} initialValue={props.initialValue} readonly={props.readonly}>
-            <AntdInput readOnly={props.readonly}  {...props.cmpOptions.props} />
+            {props.readonly ?
+                <ReadonlyInput />
+                : <AntdInput  {...props.cmpOptions.props} disabled={props.disabled} />}
         </FormItem>
     );
 }
