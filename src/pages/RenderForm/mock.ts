@@ -1,7 +1,7 @@
 /*
  * @Author: 倪航天 && 598723187@qq.com
  * @Date: 2023-09-01 16:18:18
- * @LastEditTime: 2023-09-04 17:56:57
+ * @LastEditTime: 2023-09-05 14:58:02
  * @Description: TODO:
  */
 import { RenderTyping } from '@/components/Render/typing'
@@ -13,7 +13,11 @@ export const mock: RenderTyping.SchemaType = {
 
     },
     layout: { type: "Row" },
-
+    global: {
+        labelCol: {
+            span: 4
+        }
+    },
     modules: [
         {
             id: "123",
